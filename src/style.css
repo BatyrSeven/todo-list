@@ -3,8 +3,10 @@ body {
     background-color: #ffffff;
     margin: 0;
     padding: 0;
+}
 
-    @media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) {
+    body {
         background-color: #f5f5f5;
     }
 }
@@ -15,13 +17,17 @@ body {
     background-color: #fff;
     padding: 24px;
     border-radius: 8px;
+}
 
-    @media screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
+    .container {
         margin-top: 0;
         padding: 16px;
     }
+}
 
-    @media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) {
+    .container {
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 }
@@ -30,8 +36,10 @@ body {
     text-align: center;
     margin: 0 0 16px;
     font-size: 2rem;
+}
 
-    @media screen and (max-width: 600px) {
+@media screen and (max-width: 600px) {
+    .title {
         margin-top: 0;
         padding: 16px;
     }
@@ -119,6 +127,12 @@ body {
     font-size: 0.9rem;
     cursor: pointer;
     transition: all 100ms ease;
+}
+
+@media screen and (max-width: 600px) {
+    .btn {
+        padding: 6px 10px;
+    }
 }
 
 .btn-done {
