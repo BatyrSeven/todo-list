@@ -10,20 +10,22 @@
 </head>
 <body>
 <div class="container">
-    <h1>TODO List</h1>
-    <form id="todo-form">
-        <input type="text" id="todo-input" placeholder="What needs to be done?" required />
-        <button type="submit">Add</button>
+    <h1 class="title">TODO List</h1>
+    <form id="todo-form" class="todo-form">
+        <input type="text" id="todo-input" class="todo-form__input" placeholder="Name" required
+               autocomplete="off" autofocus />
+        <input type="date" id="todo-deadline" class="todo-form__deadline"/>
     </form>
 
     <div class="filters">
         <select id="todo-filter">
             <option value="all">All</option>
+            <option value="not-done" selected>Not Done</option>
             <option value="done">Done</option>
-            <option value="not-done">Not Done</option>
         </select>
 
         <select id="todo-sort">
+            <option value="deadline" selected>Deadline</option>
             <option value="created">Created</option>
             <option value="status">Status</option>
         </select>

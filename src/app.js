@@ -1,5 +1,6 @@
 const form = document.getElementById('todo-form')
 const input = document.getElementById('todo-input')
+const deadlineInput = document.getElementById('todo-deadline')
 const list = document.getElementById('todo-list')
 const filterSelect = document.getElementById('todo-filter')
 const sortSelect = document.getElementById('todo-sort')
@@ -18,16 +19,21 @@ sortSelect.addEventListener('change', renderTodos)
 
 function addTodo(text) {
     if (!text) return
+
+    const deadline = deadlineInput.value || null
+
     const todo = {
         id: Date.now(),
         text,
         done: false,
         createdAt: new Date().toISOString(),
+        deadline,
     }
-    todos.push(todo)
 
+    todos.push(todo)
     saveTodos()
     renderTodos()
+    deadlineInput.value = ''
 }
 
 function toggleDone(id) {
@@ -65,6 +71,12 @@ function getFilteredTodos() {
         filtered.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
     } else if (sort === 'status') {
         filtered.sort((a, b) => a.done - b.done)
+    } else if (sort === 'deadline') {
+        filtered.sort((a, b) => {
+            if (!a.deadline) return 1
+            if (!b.deadline) return -1
+            return new Date(a.deadline) - new Date(b.deadline)
+        })
     }
 
     return filtered
@@ -80,18 +92,21 @@ function renderTodos() {
         li.className = todo.done ? 'done' : ''
 
         li.innerHTML = `
-          <span>${todo.text}</span>
-          <div>
-            <button class="done-btn">✔</button>
-            <button class="delete-btn">✖</button>
+          <div class="todo-content">
+            <span>${todo.text}</span>
+            ${todo.deadline ? `<div class="deadline">${todo.deadline}</div>` : ''}
+          </div>
+          <div class="todo-controls">
+            <button class="btn btn-done">✔</button>
+            <button class="btn btn-delete">✖</button>
           </div>
         `
 
-        li.querySelector('.done-btn').addEventListener('click', () =>
+        li.querySelector('.btn-done').addEventListener('click', () =>
             toggleDone(todo.id)
         )
 
-        li.querySelector('.delete-btn').addEventListener('click', () =>
+        li.querySelector('.btn-delete').addEventListener('click', () =>
             deleteTodo(todo.id)
         )
 
